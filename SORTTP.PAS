@@ -313,7 +313,7 @@ writeln('3:Insertion Sort O(n^2)');
 writeln('4:Quick Sort O(nlog2(n))');
 writeln('5:Quick Sort+Insertion Sort O(nlog2(n))');
 writeln('6:Heap Sort O(nlog2(n))');
-writeln('7:Radix Sort LCD O(nlog10(n)');
+writeln('7:Radix Sort LCD O(nlog10(n))');
 writeln('8:Shell Sort O(nlog2(n))');
 choice:=0;
 write('enter choice (1->8):'); readln(choice);
