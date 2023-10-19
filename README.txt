@@ -23,3 +23,4 @@ Chi tiết cách dùng:
  +Heap Sort O(nlog2(n)).
  +Radix Sort LCD O(nlog10(n)).
  +Shell Sort O(nlog2(n)).
+ +Merge Sort O(nlog2(n)). (mới update)
