@@ -1,4 +1,5 @@
 {code writeln by zero5556 23/2/2023}
+{update: 19/10/2023}
 program sorttp;
 uses crt,graph;
 const base=10;
@@ -8,6 +9,7 @@ var n,i:integer;
     mode,cl:boolean;
     a:array[0..1023] of integer;
     t:array[0..1023] of integer;
+    temp:array[0..1023] of integer;
     graphDrive,graphMode:integer;
 
 procedure swap(var a,b:integer);
@@ -23,14 +25,14 @@ function colormode(i:integer):byte;
 var t:integer;
 begin
 case (i mod 8) of
-0:t:=10;
-1:t:=2;
-2:t:=6;
-3:t:=3;
-4:t:=1;
-5:t:=5;
-6:t:=4;
-7:t:=14;
+0:t:=10; {Light Green}
+1:t:=2;  {Green}
+2:t:=6;  {Brown}
+3:t:=3;  {Cyan}
+4:t:=1;  {Blue}
+5:t:=5;  {Magenta}
+6:t:=4;  {Red}
+7:t:=14; {Yellow}
 end;
 colormode:=t;
 end;
@@ -220,7 +222,6 @@ if (j<n) then if (a[j]<a[j+1]) then inc(j);
 inc(c);
 if (a[i]<a[j]) then
  begin
-  inc(swaps);
   swap(a[i],a[j]);
   i:=j; j:=i+i+1;
  end else done:=false;
@@ -233,7 +234,6 @@ begin
 for i:=((right div 2)-1) downto left do begin downheap(i,n); print; end;
 for i:=n downto 1 do
  begin
-  inc(swaps);
   swap(a[left],a[i]);
   downheap(left,i-1);
   print;
@@ -261,6 +261,33 @@ while gap>0 do
     a[j]:=cur;
    end;
   gap:=gap div 2;
+ end;
+end;
+
+procedure mergesort(left,right:integer);
+var m,i,j,k:integer;
+begin
+if (left<right) then
+ begin
+  m:=(left+right) div 2;
+  mergesort(left,m); mergesort(m+1,right);
+  { merge }
+  for i:=m downto left do temp[i]:=a[i];
+  for j:=m+1 to right do temp[right+m+1-j]:=a[j];
+  for k:=left to right do
+   begin
+   inc(c);
+    if temp[i]<temp[j] then
+     begin
+      a[k]:=temp[i];
+      inc(i);
+     end else
+      begin
+       a[k]:=temp[j];
+       dec(j);
+      end;
+     print;
+   end;
  end;
 end;
 
@@ -315,8 +342,9 @@ writeln('5:Quick Sort+Insertion Sort O(nlog2(n))');
 writeln('6:Heap Sort O(nlog2(n))');
 writeln('7:Radix Sort LCD O(nlog10(n))');
 writeln('8:Shell Sort O(nlog2(n))');
+writeln('9:Merge Sort O(nlog2(n))');
 choice:=0;
-write('enter choice (1->8):'); readln(choice);
+write('enter choice (1->9):'); readln(choice);
 choice:=abs(choice);
 end;
 
@@ -338,6 +366,7 @@ case choice of
 6:heapsort(0,n-1);
 7:radixsort(0,n-1);
 8:shellsort(0,n-1);
+9:mergesort(0,n-1);
 end;
 readln;
 closegraph;
